@@ -135,7 +135,7 @@ function ElectricTariff(;
     add_tou_energy_rates_to_urdb_rate::Bool=false,
     remove_tiers::Bool=false,
     # demand_lookback_months::AbstractArray{Int64, 1}=Int64[], # Array of 12 binary values, indicating months in which `demand_lookback_percent` applies. If any of these is true, demand_lookback_range should be zero.
-    demand_lookback_months::AbstractArray{Int64, 1}=Int64[1,1,1,1,1,1,1,1,1,1,1,1], # Array of 12 binary values, indicating months in which `demand_lookback_percent` applies. If any of these is true, demand_lookback_range should be zero.
+    demand_lookback_months::AbstractArray{Int64, 1}=Int64[1,1,1,0,0,0,0,0,1,1,1,1], # Array of 12 binary values, indicating months in which `demand_lookback_percent` applies. If any of these is true, demand_lookback_range should be zero.
     demand_lookback_percent::Real=0.0,
     demand_lookback_range::Int=0,
     coincident_peak_load_active_time_steps::Vector{Vector{Int64}}=[Int64[]],
@@ -276,7 +276,7 @@ function ElectricTariff(;
 
         tou_demand_ratchet_time_steps = u.tou_demand_ratchet_time_steps
         demand_lookback_months = u.demand_lookback_months
-        demand_lookback_percent = u.demand_lookback_percent*1.33
+        demand_lookback_percent = u.demand_lookback_percent
         demand_lookback_range = u.demand_lookback_range
         fixed_monthly_charge = u.fixed_monthly_charge
         annual_min_charge = u.annual_min_charge
