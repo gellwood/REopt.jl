@@ -136,7 +136,7 @@ function ElectricTariff(;
     remove_tiers::Bool=false,
     # demand_lookback_months::AbstractArray{Int64, 1}=Int64[], # Array of 12 binary values, indicating months in which `demand_lookback_percent` applies. If any of these is true, demand_lookback_range should be zero.
     # demand_lookback_months::AbstractArray{Int64, 1}=Int64[1,1,1,1,1,1,1,1,1,1,1,1], # Array of 12 binary values, indicating months in which `demand_lookback_percent` applies. If any of these is true, demand_lookback_range should be zero.
-    demand_lookback_months::AbstractArray{Int64, 1}=Int64[0,0,0,0,0,1,1,1,0,0,0,0], 
+    demand_lookback_months::AbstractArray{Int64, 1}=Int64[0,0,0,0,0,1,1,1,1,0,0,0], 
     demand_lookback_percent::Real=0.0,
     demand_lookback_range::Int=0,
     coincident_peak_load_active_time_steps::Vector{Vector{Int64}}=[Int64[]],
