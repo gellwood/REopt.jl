@@ -276,7 +276,7 @@ function ElectricTariff(;
 
         tou_demand_ratchet_time_steps = u.tou_demand_ratchet_time_steps
         demand_lookback_months = u.demand_lookback_months
-        demand_lookback_percent = u.demand_lookback_percent
+        demand_lookback_percent = u.demand_lookback_percent*1.33
         demand_lookback_range = u.demand_lookback_range
         fixed_monthly_charge = u.fixed_monthly_charge
         annual_min_charge = u.annual_min_charge
