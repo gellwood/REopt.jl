@@ -161,7 +161,8 @@ struct SpaceHeatingLoad
         blended_doe_reference_names::Array{String, 1} = String[],
         blended_doe_reference_percents::Array{<:Real,1} = Real[],
         annual_mmbtu::Union{Real, Nothing} = nothing,
-        monthly_mmbtu::Array{<:Real,1} = Real[],
+        # monthly_mmbtu::Array{<:Real,1} = Real[],
+        monthly_mmbtu::Array{<:Real,1} = Real[[200.0, 200.0, 200.0, 200.0, 200.0, 200.0, 200.0, 200.0, 200.0, 200.0, 200.0, 200.0]],
         addressable_load_fraction::Union{<:Real, AbstractVector{<:Real}} = 1.0,
         fuel_loads_mmbtu_per_hour::Array{<:Real,1} = Real[],
         time_steps_per_hour::Int = 1, # corresponding to `fuel_loads_mmbtu_per_hour`
