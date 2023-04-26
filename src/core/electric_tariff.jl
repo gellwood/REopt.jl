@@ -137,7 +137,7 @@ function ElectricTariff(;
     # demand_lookback_months::AbstractArray{Int64, 1}=Int64[], # Array of 12 binary values, indicating months in which `demand_lookback_percent` applies. If any of these is true, demand_lookback_range should be zero.
     demand_lookback_months::AbstractArray{Int64, 1}=Int64[1,1,1,1,1,1,1,1,1,1,1,1], # Array of 12 binary values, indicating months in which `demand_lookback_percent` applies. If any of these is true, demand_lookback_range should be zero.
     # demand_lookback_months::AbstractArray{Int64, 1}=Int64[0,0,0,0,1,1,1,1,1,0,0,0], 
-    demand_lookback_percent::Real=0.0,
+    demand_lookback_percent::Real=1.0,
     demand_lookback_range::Int=0,
     coincident_peak_load_active_time_steps::Vector{Vector{Int64}}=[Int64[]],
     coincident_peak_load_charge_per_kw::AbstractVector{<:Real}=Real[]
@@ -178,7 +178,7 @@ function ElectricTariff(;
         energy_rates = tou_energy_rates_per_kwh
         monthly_demand_rates = convert(Array{Float64}, monthly_demand_rates)
 
-        fixed_monthly_charge = 0.0
+        fixed_monthly_charge = 1354
         annual_min_charge = 0.0
         min_monthly_charge = 0.0
 
@@ -210,7 +210,7 @@ function ElectricTariff(;
             append!(energy_rates, [monthly_energy_rates[m] for ts in time_steps_monthly[m]])
         end
 
-        fixed_monthly_charge = 0.0
+        fixed_monthly_charge = 1354
         annual_min_charge = 0.0
         min_monthly_charge = 0.0
 
@@ -230,7 +230,7 @@ function ElectricTariff(;
             monthly_demand_rates = repeat([0.0], 12)
         end
 
-        fixed_monthly_charge = 0.0
+        fixed_monthly_charge = 1354
         annual_min_charge = 0.0
         min_monthly_charge = 0.0
 
