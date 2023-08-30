@@ -48,9 +48,27 @@ function simulate_outage(;init_time_step, diesel_kw, fuel_available, b, m, diese
     :param crit_load: list of float, load after DER (PV, Wind, ...)
     :return: float, number of hours that the critical load can be met using load following
     """
+    ##### Debug ######
+    outage_sims = [4758]  # Example timestep for debugging
+    ##################
+    
     for i in 0:n_time_steps-1
         t = (init_time_step - 1 + i) % n_time_steps + 1  # for wrapping around end of year
         load_kw = crit_load[t]
+        ##### Debug ######
+        ##### Debugging for the specified initial timesteps ######
+        if init_time_step in outage_sims
+            println("===========================")
+            println("======= Timestep $t =======")
+            println("===========================")
+            println("Generator Capacity (kW): $diesel_kw")
+            println("Storage Capacity (kW): $batt_kw")
+            println("Storage (kWh): $batt_kwh")
+            println("Initial Battery SOC (kWh): $batt_soc_kwh")
+            println("Initial Fuel Available (L): $fuel_available")
+            println("Load (kW): $load_kw")
+        end
+        ###########
 
         if load_kw < 0  # load is met
             if batt_soc_kwh < batt_kwh  # charge battery if there's room in the battery
@@ -59,6 +77,10 @@ function simulate_outage(;init_time_step, diesel_kw, fuel_available, b, m, diese
                     batt_kw / n_steps_per_hour * batt_roundtrip_efficiency,  # inverter capacity
                     -load_kw / n_steps_per_hour * batt_roundtrip_efficiency,  # excess energy
                 ])
+                ##### Debug ######
+                init_time_step in outage_sims && println("Charging battery with excess energy. New SOC (kWh): $batt_soc_kwh")
+                ##################
+
             end
 
         else  # check if we can meet load with generator then storage
@@ -73,6 +95,10 @@ function simulate_outage(;init_time_step, diesel_kw, fuel_available, b, m, diese
                             batt_kw / n_steps_per_hour * batt_roundtrip_efficiency,  # inverter capacity
                             (diesel_min_turndown * diesel_kw - load_kw) / n_steps_per_hour * batt_roundtrip_efficiency  # excess energy
                         ])
+                        ##### Debug ######
+                        init_time_step in outage_sims && println("Battery Charging. New SOC (kWh): $batt_soc_kwh")
+                        ##################
+
                     end
                 end
                 load_kw = 0
@@ -87,25 +113,39 @@ function simulate_outage(;init_time_step, diesel_kw, fuel_available, b, m, diese
                     # run diesel gen at max output
                     fuel_available = maximum([0, fuel_available - (diesel_kw * m + b) / n_steps_per_hour])
                                                                 # (kW * gal/kWh + gal/hr) * hr = gal
+                    ##### Debug ######                                            
+                    init_time_step in outage_sims && println("Generator used to meet load. Remaining Load (kW): $load_kw, Remaining Fuel (L): $fuel_available")
+                    ##################
+
                 else  # fuel_needed > fuel_available && load_kw > diesel_kw  # limited by fuel and diesel capacity
                     # run diesel at full capacity and drain tank
                     load_kw -= minimum([diesel_kw, maximum([0, (fuel_available * n_steps_per_hour - b) / m])])
                     fuel_available = 0
+
+                    ##### Debug ######
+                    init_time_step in outage_sims && println("Generator partially meets load but now fuel is depleted. Remaining Load (kW): $load_kw, All fuel used.")
                 end
+                
 
                 if minimum([batt_kw, batt_soc_kwh * n_steps_per_hour]) >= load_kw  # battery can carry balance
                     # prevent battery charge from going negative
                     batt_soc_kwh = maximum([0, batt_soc_kwh - load_kw / n_steps_per_hour])
+                    ##### Debug ######
+                    init_time_step in outage_sims && println("Battery carries remaining balance. New SOC (kWh): $batt_soc_kwh")
+                    ##################
+
                     load_kw = 0
                 end
             end
         end
 
         if round(load_kw, digits=5) > 0  # failed to meet load in this time step
+            ##### Debug ######
+            init_time_step in outage_sims && println("Outage Occurs. Outage occured after: $(i / n_steps_per_hour) hours")
+            ##################
             return i / n_steps_per_hour
         end
     end
-
     return n_time_steps / n_steps_per_hour  # met the critical load for all time steps
 end
 
@@ -165,6 +205,7 @@ function simulate_outages(;batt_kwh=0, batt_kw=0, pv_kw_ac_hourly=[], init_soc=[
                 "resilience_hours_avg" => 0,
                 "outage_durations" => Int[],
                 "probs_of_surviving" => Float64[],
+                "critical_loads" => Float64[]
             )
         end
     end
@@ -197,12 +238,12 @@ function simulate_outages(;batt_kwh=0, batt_kw=0, pv_kw_ac_hourly=[], init_soc=[
             crit_load = load_minus_der
         )
     end
-    results = process_results(r, n_time_steps)
+    results = process_results(r, n_time_steps, load_minus_der)
     return results
 end
 
 
-function process_results(r, n_time_steps)
+function process_results(r, n_time_steps, critical_lds)
 
     r_min = minimum(r)
     r_max = maximum(r)
@@ -222,6 +263,7 @@ function process_results(r, n_time_steps)
         "resilience_hours_avg" => r_avg,
         "outage_durations" => x_vals,
         "probs_of_surviving" => y_vals,
+        "critical_loads" => critical_lds
     )
 end
 
