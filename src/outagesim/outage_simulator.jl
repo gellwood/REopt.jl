@@ -51,7 +51,8 @@ function simulate_outage(;init_time_step, diesel_kw, fuel_available, b, m, diese
     ##### Debug ######
     outage_sims = [6177]  # Example timestep for debugging
     ##################
-    
+    init_fuel = fuel_available
+
     for i in 0:n_time_steps-1
         t = (init_time_step - 1 + i) % n_time_steps + 1  # for wrapping around end of year
         load_kw = crit_load[t]
@@ -124,9 +125,11 @@ function simulate_outage(;init_time_step, diesel_kw, fuel_available, b, m, diese
 
                     ##### Debug ######
                     init_time_step in outage_sims && println("Generator partially meets load but now fuel is depleted. Remaining Load (kW): $load_kw, All fuel used.")
+                    ##################
+
                 end
                 
-
+                
                 if minimum([batt_kw, batt_soc_kwh * n_steps_per_hour]) >= load_kw  # battery can carry balance
                     # prevent battery charge from going negative
                     batt_soc_kwh = maximum([0, batt_soc_kwh - load_kw / n_steps_per_hour])
@@ -138,15 +141,16 @@ function simulate_outage(;init_time_step, diesel_kw, fuel_available, b, m, diese
                 end
             end
         end
-
         if round(load_kw, digits=5) > 0  # failed to meet load in this time step
             ##### Debug ######
             init_time_step in outage_sims && println("Outage Occurs. Outage occured after: $(i / n_steps_per_hour) hours")
             ##################
-            return i / n_steps_per_hour
+            remaining_fuel = init_fuel-fuel_available
+            return i / n_steps_per_hour, remaining_fuel
         end
     end
-    return n_time_steps / n_steps_per_hour  # met the critical load for all time steps
+    remaining_fuel = init_fuel-fuel_available
+    return n_time_steps / n_steps_per_hour, remaining_fuel  # met the critical load for all time steps
 end
 
 
@@ -221,9 +225,9 @@ function simulate_outages(;batt_kwh=0, batt_kw=0, pv_kw_ac_hourly=[], init_soc=[
     Simulation starts here
     """
     # outer loop: do simulation starting at each time step
-    
+    fuel_used = []
     for time_step in 1:n_time_steps
-        r[time_step] = simulate_outage(;
+        r[time_step], used_fuel = simulate_outage(;
             init_time_step = time_step,
             diesel_kw = diesel_kw,
             fuel_available = fuel_available,
@@ -237,8 +241,16 @@ function simulate_outages(;batt_kwh=0, batt_kw=0, pv_kw_ac_hourly=[], init_soc=[
             batt_soc_kwh = init_soc[time_step] * batt_kwh,
             crit_load = load_minus_der
         )
+        push!(fuel_used,used_fuel)
     end
     results = process_results(r, n_time_steps, load_minus_der)
+
+    # CSV.write("fuel_consumption.csv", fuel_used)
+    println("=============================================================================")
+    println(maximum(fuel_used))
+    println(minimum(fuel_used))
+    println("=============================================================================")
+
     return results
 end
 
