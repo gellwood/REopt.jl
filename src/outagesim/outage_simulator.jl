@@ -49,7 +49,7 @@ function simulate_outage(;init_time_step, diesel_kw, fuel_available, b, m, diese
     :return: float, number of hours that the critical load can be met using load following
     """
     ##### Debug ######
-    outage_sims = [6177]  # Example timestep for debugging
+    outage_sims = []  # Example timestep for debugging
     ##################
     init_fuel = fuel_available
 
