@@ -59,9 +59,9 @@ function simulate_outage(;init_time_step, diesel_kw, fuel_available, b, m, diese
         ##### Debug ######
         ##### Debugging for the specified initial timesteps ######
         if init_time_step in outage_sims
-            println("===========================")
+            println("================================================================================================================")
             println("======= Timestep $t =======")
-            println("===========================")
+            println("================================================================================================================")
             println("Generator Capacity (kW): $diesel_kw")
             println("Storage Capacity (kW): $batt_kw")
             println("Storage (kWh): $batt_kwh")
@@ -246,10 +246,13 @@ function simulate_outages(;batt_kwh=0, batt_kw=0, pv_kw_ac_hourly=[], init_soc=[
     results = process_results(r, n_time_steps, load_minus_der)
 
     # CSV.write("fuel_consumption.csv", fuel_used)
-    println("=============================================================================")
-    println(maximum(fuel_used))
-    println(minimum(fuel_used))
-    println("=============================================================================")
+    println("================================================================================================================")
+    max_fuel_used = maximum(fuel_used)
+    min_fuel_used = minimum(fuel_used)
+
+    println("Maximum Fuel Used (gallons): $max_fuel_used")
+    println("Minimum Fuel Used (gallons): $min_fuel_used")
+    println("================================================================================================================")
 
     return results
 end
