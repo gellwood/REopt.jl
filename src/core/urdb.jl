@@ -343,7 +343,7 @@ function scrub_urdb_demand_tiers!(A::Array)
                 rate_new = rate
                 last_tier = rate[n_tiers_in_period]
                 for j in range(1, stop=n_tiers - n_tiers_in_period)
-                    append!(rate_new, last_tier)
+                    push!(rate_new, last_tier)
                 end
                 A[i] = rate_new
             end
@@ -372,10 +372,11 @@ function parse_urdb_demand_tiers(A::Array; bigM=1.0e8)
     for period in range(1, stop=length(A))
         demand_max = Float64[]
         for tier in A[period]
+            # println(typeof(tier), ": ", tier)
             append!(demand_max, get(tier, "max", bigM))
         end
         demand_tiers[period] = demand_max
-        append!(demand_maxes, demand_max[end])  # TODO should this be maximum(demand_max)?
+        push!(demand_maxes, demand_max[end])  # TODO should this be maximum(demand_max)?
     end
 
     # test if the highest tier is the same across all periods
