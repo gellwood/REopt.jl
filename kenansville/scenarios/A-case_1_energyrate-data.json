@@ -1,10 +1,10 @@
 {
   "Settings": {
-    "time_steps_per_hour": 2
+    "time_steps_per_hour": 1
   },
   "Site": {
-    "latitude": 35.989167,
-    "longitude": -84.255278
+    "latitude": 38.16357611251485, 
+    "longitude": -85.88771575651377
   },
   "PV": {
     "module_type": 0,
