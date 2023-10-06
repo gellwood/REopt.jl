@@ -1,0 +1,46 @@
+{
+    "Y12": {
+        "240": [
+            [
+                "scenarios/A-case_1.json",
+                "A0. Business as Usual (BAU)"
+            ],
+            [
+                "scenarios/A-case_1.json",
+                "A1. Standalone PV"
+            ],
+            [
+                "scenarios/A-case_2.json",
+                "A2. PV and Storage"
+            ]
+        ],
+        "245": [
+            [
+                "scenarios/B-case_1.json",
+                "B0. Business as Usual (BAU)"
+            ],
+            [
+                "scenarios/B-case_1.json",
+                "B1. Standalone PV"
+            ],
+            [
+                "scenarios/B-case_2.json",
+                "B2. PV and Storage"
+            ]
+        ],    
+        "Combo": [
+            [
+                "scenarios/C-case_1.json",
+                "C0. Business as Usual (BAU)"
+            ],
+            [
+                "scenarios/C-case_1.json",
+                "C1. Standalone PV"
+            ],
+            [
+                "scenarios/C-case_2.json",
+                "C2. PV and Storage"
+            ]
+        ]
+    }
+}

@@ -1,0 +1,25 @@
+Scenario,B0. Business as Usual (BAU),B1. Standalone PV,B2. PV and Storage
+PV Size (kW-DC),-,-,-
+Battery Size (kW),-,-,253.41
+Battery Capacity (kWh),-,-,311.37
+Capital Cost ($),-,-,$323.2k
+Microgrid Upgrade and Fuel Cost ($),-,-,-
+RE Penetration (%),-,-,-
+Annual CO2 Emissions (Tons),72110.7,72110.7,72110.69
+Lifecycle CO2 Emissions (Tons),1.55181212e6,1.55181212e6,1.55181201e6
+Lifecycle CO2 Reduction (%),-,-,-
+Year 1 Electric Grid Purchases (MWh),1.12300614e6,1.12300614e6,1.12300981e6
+Total Lifecycle Cost ($),$92.5M,$92.5M,$92.4M
+Year 1 Energy Charges ($),$6.3M,$6.3M,$6.3M
+Year 1 Demand Charges ($),$3.7M,$3.7M,$3.7M
+Year 1 Total Electric Bill Costs ($),$10.1M,$10.1M,$10.0M
+Year 1 Energy Charge Savings ($),-,-,-$20.6
+Year 1 Demand Charge Savings ($),-,-,$49.1k
+Year 1 Total Electric Bill Savings ($),-,-,$49.1k
+Year 1 Utility Savings (%),-,-,-
+Total Utility Electricity Cost ($),$92.5M,$92.5M,$92.1M
+Lifecycle Savings (%),-,-,-
+Net Present Value ($),-,-,$127.4k
+PV Levelized Cost of Energy ($/kWh),-,-,-
+Payback Period (Years),-,-,12.96
+Year 1 Net Metering Benefit ($),-,-,-
