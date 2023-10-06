@@ -1,0 +1,25 @@
+Scenario,A0. Business as Usual (BAU),A1. Load Energy Rate - PV + Storage,A2. Rate from Utility Old - PV + Storage,A3. Rate from Utility New - PV + Storage
+PV Size (kW-DC),-,-,-,-
+Battery Size (kW),-,-,27.92,25.72
+Battery Capacity (kWh),-,-,36.81,33.91
+Capital Cost ($),-,-,$29.7k,$27.3k
+Microgrid Upgrade and Fuel Cost ($),-,-,-,-
+RE Penetration (%),-,-,-,-
+Annual CO2 Emissions (Tons),18943.79,18943.79,18944.41,18945.13
+Lifecycle CO2 Emissions (Tons),407667.61,407667.61,407680.95,407696.56
+Lifecycle CO2 Reduction (%),-,-,-,-
+Year 1 Electric Grid Purchases (MWh),269033.92,269033.92,269047.75,269050.95
+Total Lifecycle Cost ($),$12.3M,$12.3M,$11.1M,$9.2M
+Year 1 Energy Charges ($),$1.2M,$1.2M,$1.0M,$615.3k
+Year 1 Demand Charges ($),$1.0M,$1.0M,$1.0M,$1.1M
+Year 1 Total Electric Bill Costs ($),$2.2M,$2.2M,$2.0M,$1.7M
+Year 1 Energy Charge Savings ($),-,-,$11.1,$241.0
+Year 1 Demand Charge Savings ($),-,-,$6.0k,$5.6k
+Year 1 Total Electric Bill Savings ($),-,-,$6.0k,$5.9k
+Year 1 Utility Savings (%),-,-,-,-
+Total Utility Electricity Cost ($),$12.3M,$12.3M,$11.1M,$9.2M
+Lifecycle Savings (%),-,-,-,-
+Net Present Value ($),-,-,$3.0k,$4.8k
+PV Levelized Cost of Energy ($/kWh),-,-,-,-
+Payback Period (Years),-,-,4.48,4.22
+Year 1 Net Metering Benefit ($),-,-,-,-

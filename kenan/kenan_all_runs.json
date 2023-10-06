@@ -1,0 +1,22 @@
+{
+    "kenan": {
+        "A": [
+            [
+                "scenarios/A-case_1_energyrate-data.json",
+                "A0. Business as Usual (BAU)"
+            ],
+            [
+                "scenarios/A-case_1_energyrate-data.json",
+                "A1. Load Energy Rate - PV + Storage"
+            ],
+            [
+                "scenarios/A-case_1_energyrate-oldvalidation.json",
+                "A2. Rate from Utility Old - PV + Storage"
+            ],
+            [
+                "scenarios/A-case_1_energyrate-updatedrate.json",
+                "A3. Rate from Utility New - PV + Storage"
+            ]
+        ]
+    }
+}
