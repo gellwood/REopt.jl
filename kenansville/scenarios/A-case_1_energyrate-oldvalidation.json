@@ -14,12 +14,6 @@
     "macrs_option_years": 0,
     "macrs_bonus_fraction": 0.0
   },
-  "ElectricStorage": {
-    "macrs_option_years": 0,
-    "can_grid_charge": true,
-    "macrs_bonus_fraction": 0.0,
-    "total_itc_fraction": 0.0
-  },
   "ElectricLoad": {
     "loads_kw": [
       7416, 7344, 7344, 7344, 7416, 7344, 7200, 7272, 7272, 7272, 7272, 7200,
